@@ -5,38 +5,11 @@ namespace Address_Book
 {
     class Program
     {
-        public void Create_Contacts(Data contact)
+        public static Dictionary<string, AdddressBookBuilder> AddressBookDictionary = new Dictionary<string, AdddressBookBuilder>();
+        public static void FillAddressBook(AdddressBookBuilder addressbook)
         {
-            Console.Write("Enter the First Name : ");
-            contact.First_Name = (Console.ReadLine());
-
-            Console.Write("Enter the Last Name : ");
-            contact.Last_Name = (Console.ReadLine());
-
-            Console.Write("Enter the Address : ");
-            contact.Address = (Console.ReadLine());
-
-            Console.Write("Enter the City : ");
-            contact.City = (Console.ReadLine());
-
-            Console.Write("Enter the State : ");
-            contact.State = (Console.ReadLine());
-
-            Console.Write("Enter the Zip : ");
-            contact.Zip = Convert.ToInt32(Console.ReadLine());
-
-            Console.Write("Enter the Phone No : ");
-            contact.Phone_No = Convert.ToInt64(Console.ReadLine());
-
-            Console.Write("Enter the Email Id : ");
-            contact.Email = (Console.ReadLine());
-        }
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Welcome to Address Book Program");
-            AdddressBookBuilder addressbook = new AdddressBookBuilder();
-            Program addressbookobj = new Program();
             int choice = 1;
+
             while (choice != 5)
             {
                 Console.WriteLine("---------------------------------------------------------------------------------------------------");
@@ -47,7 +20,7 @@ namespace Address_Book
                 {
                     case 1:
                         Data contact = new Data();
-                        addressbookobj.Create_Contacts(contact);
+                        Create_Contacts(contact);
                         addressbook.AddContact(contact);
                         Console.WriteLine("Contact Added Successfully.");
                         break;
@@ -70,7 +43,7 @@ namespace Address_Book
                             Console.WriteLine("-----------Before Updating-----------");
                             Console.WriteLine($"First Name :{addressbook.list[index].First_Name} \nLast Name : {addressbook.list[index].Last_Name} \nAddress : {addressbook.list[index].Address} \nCity : {addressbook.list[index].City} \nState : {addressbook.list[index].State} \nZip : {addressbook.list[index].Zip} \nPhone No : {addressbook.list[index].Phone_No} \nEmail : {addressbook.list[index].Email}");
                             Console.WriteLine("---------------------------------------------------------------------------------------------------");
-                            addressbookobj.Create_Contacts(contact2);
+                            Create_Contacts(contact2);
                             addressbook.list[index] = contact2;
                             Console.WriteLine("---------------------------------------------------------------------------------------------------");
                             Console.WriteLine("-----------After Updating---------");
@@ -104,6 +77,70 @@ namespace Address_Book
                 }
 
             }
+        }
+        public static void Create_Contacts(Data contact)
+        {
+            Console.Write("Enter the First Name : ");
+            contact.First_Name = (Console.ReadLine());
+
+            Console.Write("Enter the Last Name : ");
+            contact.Last_Name = (Console.ReadLine());
+
+            Console.Write("Enter the Address : ");
+            contact.Address = (Console.ReadLine());
+
+            Console.Write("Enter the City : ");
+            contact.City = (Console.ReadLine());
+
+            Console.Write("Enter the State : ");
+            contact.State = (Console.ReadLine());
+
+            Console.Write("Enter the Zip : ");
+            contact.Zip = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Enter the Phone No : ");
+            contact.Phone_No = Convert.ToInt64(Console.ReadLine());
+
+            Console.Write("Enter the Email Id : ");
+            contact.Email = (Console.ReadLine());
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Welcome to Address Book Program");
+
+            int choice = 1;
+
+            while (choice != 3)
+            {
+                Console.WriteLine("---------------------------------------------------------------------------------------------------");
+                Console.WriteLine("Menu : \n 1.Add new Address Book name \n 2.Work in existing address book \n 3.exit ");
+                choice = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("---------------------------------------------------------------------------------------------------");
+                switch (choice)
+                {
+                    case 1:
+                        Console.Write("Enter New address book name : ");
+                        String Name = (Console.ReadLine());
+                        AddressBookDictionary.Add(Name, new AdddressBookBuilder());
+                        break;
+
+                    case 2:
+                        Console.Write("In which address book you want to work : ");
+                        String name = (Console.ReadLine());
+                        AdddressBookBuilder addressbook = AddressBookDictionary[name];
+                        FillAddressBook(addressbook);
+                        break;
+
+                    case 3:
+                        Console.WriteLine("Program is terminated");
+                        break;
+
+                    default:
+                        Console.WriteLine("Your input is wrong");
+                        break;
+                }
+            }
+
         }
     }
 }
