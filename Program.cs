@@ -35,17 +35,19 @@ namespace Address_Book
         {
             Console.WriteLine("Welcome to Address Book Program");
             AdddressBookBuilder addressbook = new AdddressBookBuilder();
-            Program addressbookpbj = new Program();
+            Program addressbookobj = new Program();
             int choice = 1;
-            while (choice != 3)
+            while (choice != 4)
             {
-                Console.WriteLine("Menu : \n 1.Add_Contact \n 2.Display_Contact \n 3.Exit ");
+                Console.WriteLine("---------------------------------------------------------------------------------------------------");
+                Console.WriteLine("Menu : \n 1.Add Contact \n 2.Display Contact \n 3.Update Contact Using First Name \n 4.Exit ");
                 choice = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("---------------------------------------------------------------------------------------------------");
                 switch (choice)
                 {
                     case 1:
                         Data contact = new Data();
-                        addressbookpbj.Create_Contacts(contact);
+                        addressbookobj.Create_Contacts(contact);
                         addressbook.AddContact(contact);
                         Console.WriteLine("Contact Added Successfully.");
                         break;
@@ -53,6 +55,29 @@ namespace Address_Book
                         addressbook.Display_Contacts();
                         break;
                     case 3:
+                        Console.WriteLine("which contact you want to update Enter First Name");
+                        String FirstName = (Console.ReadLine());
+                        int index = addressbook.Update_Contact(FirstName);
+                        Console.WriteLine("Index is " + index);
+                        if (index == -1)
+                        {
+                            Console.WriteLine("Contact Not Found");
+                        }
+                        else
+                        {
+                            Data contact2 = new Data();
+                            Console.WriteLine("---------------------------------------------------------------------------------------------------");
+                            Console.WriteLine("-----------Before Updating-----------");
+                            Console.WriteLine($"First Name :{addressbook.list[index].First_Name} \nLast Name : {addressbook.list[index].Last_Name} \nAddress : {addressbook.list[index].Address} \nCity : {addressbook.list[index].City} \nState : {addressbook.list[index].State} \nZip : {addressbook.list[index].Zip} \nPhone No : {addressbook.list[index].Phone_No} \nEmail : {addressbook.list[index].Email}");
+                            Console.WriteLine("---------------------------------------------------------------------------------------------------");
+                            addressbookobj.Create_Contacts(contact2);
+                            addressbook.list[index] = contact2;
+                            Console.WriteLine("---------------------------------------------------------------------------------------------------");
+                            Console.WriteLine("-----------After Updating---------");
+                            Console.WriteLine($"First Name :{addressbook.list[index].First_Name} \nLast Name : {addressbook.list[index].Last_Name} \nAddress : {addressbook.list[index].Address} \nCity : {addressbook.list[index].City} \nState : {addressbook.list[index].State} \nZip : {addressbook.list[index].Zip} \nPhone No : {addressbook.list[index].Phone_No} \nEmail : {addressbook.list[index].Email}");
+                        }
+                        break;
+                    case 4:
                         Console.WriteLine("Program Exited");
                         break;
                     default:

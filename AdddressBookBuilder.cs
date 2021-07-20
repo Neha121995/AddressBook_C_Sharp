@@ -24,6 +24,13 @@ namespace Address_Book
             {
                 Console.WriteLine($"{i.First_Name} : {i.Last_Name} : {i.Address} : {i.City} : {i.State} : {i.Zip} : {i.Phone_No} : {i.Email}");
             }
+            
+        }
+        public int Update_Contact(string FirstName)
+        {
+            int index = list.FindIndex(data => data.First_Name.Equals(FirstName));
+            return index;
+
         }
     }
 }
