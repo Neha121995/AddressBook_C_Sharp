@@ -37,10 +37,10 @@ namespace Address_Book
             AdddressBookBuilder addressbook = new AdddressBookBuilder();
             Program addressbookobj = new Program();
             int choice = 1;
-            while (choice != 4)
+            while (choice != 5)
             {
                 Console.WriteLine("---------------------------------------------------------------------------------------------------");
-                Console.WriteLine("Menu : \n 1.Add Contact \n 2.Display Contact \n 3.Update Contact Using First Name \n 4.Exit ");
+                Console.WriteLine("Menu : \n 1.Add Contact \n 2.Display Contact \n 3.Update Contact Using First Name \n 4.Delete Contact using first Name \n 5.Exit ");
                 choice = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("---------------------------------------------------------------------------------------------------");
                 switch (choice)
@@ -75,9 +75,27 @@ namespace Address_Book
                             Console.WriteLine("---------------------------------------------------------------------------------------------------");
                             Console.WriteLine("-----------After Updating---------");
                             Console.WriteLine($"First Name :{addressbook.list[index].First_Name} \nLast Name : {addressbook.list[index].Last_Name} \nAddress : {addressbook.list[index].Address} \nCity : {addressbook.list[index].City} \nState : {addressbook.list[index].State} \nZip : {addressbook.list[index].Zip} \nPhone No : {addressbook.list[index].Phone_No} \nEmail : {addressbook.list[index].Email}");
+                            Console.WriteLine("Contact Update Successfully.");
                         }
                         break;
                     case 4:
+                        Console.WriteLine("which contact you want to Delete Enter First Name");
+                        String First_Name = (Console.ReadLine());
+                        int index1 = addressbook.Update_Contact(First_Name);
+                        Console.WriteLine("Index is " + index1);
+                        if (index1 == -1)
+                        {
+                            Console.WriteLine("Contact Not Found");
+                        }
+                        else
+                        {
+                            Data contact2 = new Data();
+                            addressbook.list.RemoveAt(index1);
+                            Console.WriteLine("Contact Delete Successfully.");
+                        }
+                        break;
+
+                    case 5:
                         Console.WriteLine("Program Exited");
                         break;
                     default:
